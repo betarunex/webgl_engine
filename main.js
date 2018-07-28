@@ -35,6 +35,21 @@ void main(){
     outColour = vec4(0.2,0.2,0.4,1);
 }`;
 
+function createShader(gl, type, source) {
+    var shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    var success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
+    if (success){
+        return shader;
+    }
+    console.log("Error creating shader: ", gl.getShaderInfoLog(shader));
+    gl.deleteShader(shader);
+}
+
+var vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+var fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+
 // create shader program from shaders
 // create vaos
 // create vbos ans store in vao
