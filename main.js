@@ -84,4 +84,8 @@ gl.vertexAttribPointer(a_positionLoc, 2, gl.FLOAT, false, 0, 0); // binds bound 
 // unbind vbos and vaos
 gl.bindBuffer(gl.ARRAY_BUFFER, null);
 gl.bindVertexArray(null);
+
 // draw vao (the triangle model)
+gl.useProgram(shaderProgram);
+gl.bindVertexArray(vao);
+gl.drawArrays(gl.TRIANGLES,0,3); // (primative type, offset, count)
