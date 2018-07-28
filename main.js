@@ -17,6 +17,24 @@ var trianglePoints = [
 ];
 
 // create shaders
+var vertexShaderSource = `# version 300 es
+
+in vec4 a_position;
+
+void main(){
+    gl_Position = a_position;
+}`;
+
+var fragmentShaderSource = `# version 300 es
+
+precision mediump float;
+
+out vec4 outColour;
+
+void main(){
+    outColour = vec4(0.2,0.2,0.4,1);
+}`;
+
 // create shader program from shaders
 // create vaos
 // create vbos ans store in vao
