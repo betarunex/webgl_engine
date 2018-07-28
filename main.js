@@ -66,6 +66,9 @@ function createShaderProgram(gl, vertexShader, fragmentShader) {
 
 var shaderProgram = createShaderProgram(gl, vertexShader, fragmentShader);
 
+// once off get locations from shader program (ie out of loop)
+var a_positionLoc = gl.getAttribLocation(shaderProgram, "a_position");
+
 // create vaos
-// create vbos ans store in vao
+// create vbos and store in vao
 // draw vao (the triangle model)
