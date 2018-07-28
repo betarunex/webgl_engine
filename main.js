@@ -70,5 +70,12 @@ var shaderProgram = createShaderProgram(gl, vertexShader, fragmentShader);
 var a_positionLoc = gl.getAttribLocation(shaderProgram, "a_position");
 
 // create vaos
-// create vbos and store in vao
+// create and link VAO
+var vao = gl.createVertexArray();
+gl.bindVertexArray(vao);
+gl.enableVertexAttribArray(a_positionLoc); // enable all attribs in use
+
+    // create vbos and store in vao
+
+gl.bindVertexArray(null);
 // draw vao (the triangle model)
