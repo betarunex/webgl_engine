@@ -51,6 +51,21 @@ var vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
 var fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
 
 // create shader program from shaders
+function createShaderProgram(gl, vertexShader, fragmentShader) {
+    var shaderProgram = gl.createProgram();
+    gl.attachShader(shaderProgram,vertexShader);
+    gl.attachShader(shaderProgram, fragmentShader);
+    gl.linkProgram(shaderProgram);
+    var success = gl.getProgramParameter(shaderProgram, gl.LINK_STATUS);
+    if (success){
+        return shaderProgram;
+    }
+    console.log("Error creating shaderProgram: ", gl.getProgramInfoLog(shaderProgram));
+    gl.deleteProgram(shaderProgram);
+}
+
+var shaderProgram = createShaderProgram(gl, vertexShader, fragmentShader);
+
 // create vaos
 // create vbos ans store in vao
 // draw vao (the triangle model)
