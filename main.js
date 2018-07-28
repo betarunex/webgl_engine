@@ -15,3 +15,9 @@ var trianglePoints = [
     0,-0.8,
     0.5,1
 ];
+
+// create shaders
+// create shader program from shaders
+// create vaos
+// create vbos ans store in vao
+// draw vao (the triangle model)
