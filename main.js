@@ -76,6 +76,12 @@ gl.bindVertexArray(vao);
 gl.enableVertexAttribArray(a_positionLoc); // enable all attribs in use
 
     // create vbos and store in vao
+var vbo = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(trianglePoints), gl.STATIC_DRAW);
+gl.vertexAttribPointer(a_positionLoc, 2, gl.FLOAT, false, 0, 0); // binds bound buffer to attrib
 
+// unbind vbos and vaos
+gl.bindBuffer(gl.ARRAY_BUFFER, null);
 gl.bindVertexArray(null);
 // draw vao (the triangle model)
