@@ -17,54 +17,7 @@ var trianglePoints = [
 ];
 
 // create shaders
-var vertexShaderSource = `# version 300 es
-
-in vec4 a_position;
-
-void main(){
-    gl_Position = a_position;
-}`;
-
-var fragmentShaderSource = `# version 300 es
-
-precision mediump float;
-
-out vec4 outColour;
-
-void main(){
-    outColour = vec4(0.2,0.2,0.4,1);
-}`;
-
-function createShader(gl, type, source) {
-    var shader = gl.createShader(type);
-    gl.shaderSource(shader, source);
-    gl.compileShader(shader);
-    var success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
-    if (success){
-        return shader;
-    }
-    console.log("Error creating shader: ", gl.getShaderInfoLog(shader));
-    gl.deleteShader(shader);
-}
-
-var vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
-var fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
-
-// create shader program from shaders
-function createShaderProgram(gl, vertexShader, fragmentShader) {
-    var shaderProgram = gl.createProgram();
-    gl.attachShader(shaderProgram,vertexShader);
-    gl.attachShader(shaderProgram, fragmentShader);
-    gl.linkProgram(shaderProgram);
-    var success = gl.getProgramParameter(shaderProgram, gl.LINK_STATUS);
-    if (success){
-        return shaderProgram;
-    }
-    console.log("Error creating shaderProgram: ", gl.getProgramInfoLog(shaderProgram));
-    gl.deleteProgram(shaderProgram);
-}
-
-var shaderProgram = createShaderProgram(gl, vertexShader, fragmentShader);
+var shaderProgram = ShaderUtil.createShaderProgram(gl, vertexShaderSource, fragmentShaderSource);
 
 // once off get locations from shader program (ie out of loop)
 var a_positionLoc = gl.getAttribLocation(shaderProgram, "a_position");
