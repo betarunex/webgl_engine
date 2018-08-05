@@ -10,35 +10,36 @@ if(!gl){
 gl.clearColor(0.5,0.6,0.9,1); // rgb alpha 0.0-1.0 (Kind of default colour selected to this)
 gl.clear(gl.COLOR_BUFFER_BIT) // Clear the canvas (with selected cleared colour)
 
-var trianglePoints = [
+
+var shaderProgram = ShaderUtil.createShaderProgram(gl, vertexShaderSource, fragmentShaderSource);
+
+var mymodel1 = new DefaultModelType();
+mymodel1.attribs.a_position.data = [
     -0.6,0,
     0,-0.8,
     0.5,1
 ];
 
-// create shaders
-var shaderProgram = ShaderUtil.createShaderProgram(gl, vertexShaderSource, fragmentShaderSource);
+var mymodel2 = new DefaultModelType();
+mymodel2.attribs.a_position.data = [
+    -0.9,1,
+    -0.7,-0.3,
+    0.5,1
+];
 
-// once off get locations from shader program (ie out of loop)
-var a_positionLoc = gl.getAttribLocation(shaderProgram, "a_position");
-
-// create vaos
-// create and link VAO
-var vao = gl.createVertexArray();
-gl.bindVertexArray(vao);
-gl.enableVertexAttribArray(a_positionLoc); // enable all attribs in use
-
-    // create vbos and store in vao
-var vbo = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
-gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(trianglePoints), gl.STATIC_DRAW);
-gl.vertexAttribPointer(a_positionLoc, 2, gl.FLOAT, false, 0, 0); // binds bound buffer to attrib
-
-// unbind vbos and vaos
-gl.bindBuffer(gl.ARRAY_BUFFER, null);
-gl.bindVertexArray(null);
+// prepare
+ModelUtil.prepare(gl, shaderProgram, mymodel1);
+ModelUtil.prepare(gl, shaderProgram, mymodel2);
 
 // draw vao (the triangle model)
 gl.useProgram(shaderProgram);
-gl.bindVertexArray(vao);
+gl.bindVertexArray(mymodel1.vao);
 gl.drawArrays(gl.TRIANGLES,0,3); // (primative type, offset, count)
+
+gl.bindVertexArray(mymodel2.vao);
+gl.drawArrays(gl.TRIANGLES,0,3); // (primative type, offset, count)
+
+
+
+
+
