@@ -1,16 +1,16 @@
 class ModelUtil {
     static setVAO(gl, model){
-        var vao = this.createAndBindVAO();
+        var vao = this.createAndBindVAO(gl);
         for(const key of Object.keys(model.attribs)){
             var attrib = model.attribs[key];
             this.bindVBO(gl, attrib.location, attrib.data, attrib.size);
             gl.enableVertexAttribArray(attrib.location);
         }
-        this.unbind();
+        this.unbind(gl);
         model.vao = vao;
     }
 
-    static createAndBindVAO(){
+    static createAndBindVAO(gl){
         var vao = gl.createVertexArray();
         gl.bindVertexArray(vao);
         return vao;
@@ -25,7 +25,7 @@ class ModelUtil {
     }
 
     // unbind vbos and vaos
-    static unbind(){
+    static unbind(gl){
         gl.bindBuffer(gl.ARRAY_BUFFER, null);
         gl.bindVertexArray(null);
     }
