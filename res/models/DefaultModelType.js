@@ -1,7 +1,7 @@
 class DefaultModelType {
     constructor() {
         this.vao = null;
-        this.type = "default";
+        this.ID = "default";
         this.attribs = {
             a_position : {
                 name: "a_position",
@@ -13,10 +13,11 @@ class DefaultModelType {
     }
 }
 
+// load random modeltypes
 class DefaultModelTypeTest1 extends DefaultModelType {
     constructor(){
         super();
-        this.type = "default1";
+        this.ID = "default1";
         this.attribs.a_position.data = [
             -0.6,0,
             0,-0.8,
@@ -24,11 +25,10 @@ class DefaultModelTypeTest1 extends DefaultModelType {
         ];
     }
 }
-
 class DefaultModelTypeTest2 extends DefaultModelType {
     constructor(){
         super();
-        this.type = "default2";
+        this.ID = "default2";
         this.attribs.a_position.data = [
             -0.9,1,
             -0.7,-0.3,

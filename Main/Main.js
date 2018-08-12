@@ -1,37 +1,28 @@
 // Start using WebGL 2.0
 var canvas = document.getElementById("canvas");
-var renderer = new RenderEngine(canvas, vertexShaderSource, fragmentShaderSource);
+var modelTypesContainer = new ModelTypesContainer();
+var renderer = new RenderEngine(canvas, vertexShaderSource, fragmentShaderSource); // add model types
+renderer.loadModelTypes(modelTypesContainer.modelsTypes);
+var game = new Game();
+renderer.setBackgroundColour(0.5,0.6,0.9,1);
 
-var mymodel1 = new DefaultModelTypeTest1();
-var mymodel2 = new DefaultModelTypeTest2();
+function loop() {
+    renderer.drawModels(game.modelsToRender);
+    game.runGameLogic();
+    if(game.running){
+        setTimeout(() => {
+            loop();
+        }, 500);
+    } else {
+        // delete shader and buffers etc.
+    }
+}
 
-var modelsTypes = [];
-modelsTypes[mymodel1.type] = mymodel1;
-modelsTypes[mymodel2.type] = mymodel2;
+// start
+loop();
 
-// prepare
-renderer.loadModelTypes(modelsTypes);
-
-gl = renderer.gl;
-
-var model11 = new DefaultModel1();
-var model12 = new DefaultModel1();
-var model21 = new DefaultModel2();
-
-models = [model11, model12, model21];
-// loop here
-renderer.refresh(0.5,0.6,0.9,1);
-renderer.drawModels(models);
-
-// // draw vao (the triangle model)
-// gl.useProgram(shaderProgram);
-// gl.bindVertexArray(mymodel1.vao);
-// gl.drawArrays(gl.TRIANGLES,0,3); // (primative type, offset, count)
-
-// gl.bindVertexArray(mymodel2.vao);
-// gl.drawArrays(gl.TRIANGLES,0,3); // (primative type, offset, count)
-
-
+// stop in console for now
+// game.stop();
 
 
 

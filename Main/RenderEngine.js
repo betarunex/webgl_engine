@@ -1,6 +1,7 @@
 class RenderEngine {
     constructor(canvas, vertexShaderSource, fragmentShaderSource) {
         this.gl = canvas.getContext("webgl2");
+        this.bgColor = [0,0,0,1];
         if(!this.gl){
             // TODO stop execution
             console.log("Failed to load glContext");
@@ -9,8 +10,8 @@ class RenderEngine {
         this.shaderProgram = ShaderUtil.createShaderProgram(this.gl, vertexShaderSource, fragmentShaderSource);
     }
 
-    refresh(r,g,b,a) {
-        this.gl.clearColor(r,g,b,a);
+    refresh() {
+        this.gl.clearColor(...this.bgColor);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT);
     }
 
@@ -25,23 +26,28 @@ class RenderEngine {
         this.gl.bindVertexArray(modelType.vao);
         for(var model of models){
             // load model specific data
-            this.gl.drawArrays(gl.TRIANGLES,0,3);
+            this.gl.drawArrays(this.gl.TRIANGLES,0,3);
         }
     }
 
     drawModels(models){
+        renderer.refresh();
         this.gl.useProgram(this.shaderProgram);
         // sort models by type
         var modelsByType = {};
         for(var model of models){
-            if(!modelsByType[model.type]){
-                modelsByType[model.type] = new Set();
+            if(!modelsByType[model.ID]){
+                modelsByType[model.ID] = new Set();
             }
-            modelsByType[model.type].add(model);
+            modelsByType[model.ID].add(model);
         }
         // draw models by type
         for(var modelType of Object.keys(modelsByType)) {
             this.drawModelsForType(modelsByType[modelType], this.modelTypes[modelType]);
         }
+    }
+
+    setBackgroundColour(r,g,b,a){
+        this.bgColor = [r,g,b,a];
     }
 }
