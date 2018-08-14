@@ -1,2 +1,3 @@
 # webgl_engine
-Greating a WebGL engine
+
+This is a lightweight WebGL engine for 3D rendering.
