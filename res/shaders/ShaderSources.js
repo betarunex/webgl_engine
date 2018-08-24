@@ -1,10 +1,10 @@
 
 var vertexShaderSource = `# version 300 es
 
-in vec4 a_position;
+in vec4 a_vertices;
 
 void main(){
-    gl_Position = a_position;
+    gl_Position = a_vertices;
 }`;
 
 var fragmentShaderSource = `# version 300 es
