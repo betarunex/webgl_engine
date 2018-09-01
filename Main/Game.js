@@ -8,6 +8,7 @@ class Game {
     }
 
     runGameLogic(){
+        this.modelsToRender[1].pos[0] += 0.03;
         console.log("testing");
     }
 
