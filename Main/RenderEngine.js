@@ -8,6 +8,8 @@ class RenderEngine {
         }
 
         this.shaderProgram = ShaderUtil.createShaderProgram(this.gl, vertexShaderSource, fragmentShaderSource);
+        this.uniforms = [];
+        this.uniforms["u_position"] = this.gl.getUniformLocation(this.shaderProgram, "u_position");
     }
 
     refresh() {
@@ -26,6 +28,7 @@ class RenderEngine {
         this.gl.bindVertexArray(modelType.vao);
         for(var model of models){
             // load model specific data
+            this.gl.uniform3fv(this.uniforms["u_position"], model.pos);
             this.gl.drawArrays(this.gl.TRIANGLES,0,3);
         }
     }
